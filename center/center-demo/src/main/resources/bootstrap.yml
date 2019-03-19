@@ -1,0 +1,29 @@
+spring:
+  application:
+    name: center-demo
+  rabbitmq:
+    host: ${RABBIT_MQ_HOST:localhost}
+    port: ${RABBIT_MQ_PORT:5672}
+    username: ${RABBIT_MQ_USERNAME:guest}
+    password: ${RABBIT_MQ_PASSWORD:guest}
+  cloud:
+    config:
+       # ',' multi config-file-> name: center-demo1,center-demo2
+       name: center-demo
+       label: master
+       profile: dev
+       enabled: true
+       discovery:
+         enabled: true
+         service-id: config-server
+       fail-fast: false
+       retry:
+         max-attempts: 6
+server:
+  port: 8091
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://${EUREKA_ZONE_HOST:localhost}:${EUREKA_ZONE_PORT:8761}/eureka/
+

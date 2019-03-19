@@ -1,0 +1,15 @@
+version: '3'
+services:
+  eureka-server:
+    image: willen/eureka-server
+    container_name: sc-eureka-server
+    restart: unless-stopped
+    volumes:
+      - ./data/eureka-server/logs:/var/logs
+    networks:
+      - sc-net
+    ports:
+      - 7761:8761
+networks:
+  sc-net:
+    driver: bridge

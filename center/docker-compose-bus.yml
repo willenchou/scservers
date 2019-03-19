@@ -1,0 +1,60 @@
+version: '3'
+services:
+  eureka-server:
+    image: willen/eureka-server
+    container_name: sc-eureka-server
+    restart: unless-stopped
+    volumes:
+      - ./data/eureka-server/logs:/var/logs
+    environment:
+      - RABBIT_MQ_HOST=rabbitmq
+      - RABBIT_MQ_PORT=5672
+      - RABBIT_MQ_USERNAME=guest
+      - RABBIT_MQ_PASSWORD=guest
+      - EUREKA_ZONE_HOST=eureka-server
+    networks:
+      - sc-net
+    ports:
+      - 7761:8761
+  rabbitmq:
+    image: rabbitmq:management-alpine
+    container_name: rabbitmq
+    environment:
+      - RABBITMQ_DEFAULT_USER=guest
+      - RABBITMQ_DEFAULT_PASS=guest
+    restart: unless-stopped
+    networks:
+      - sc-net
+    volumes:
+      - ./data/rabbitmq:/var/lib/rabbitmq
+    ports:
+      - "15672:15672"
+      - "5672:5672"
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "200k"
+        max-file: "10"
+  bus-server:
+    image: willen/bus-server
+    container_name: sc-bus-server
+    restart: unless-stopped
+    volumes:
+      - ./data/bus-server/logs:/var/logs
+    depends_on:
+      - rabbitmq
+      - eureka-server
+    networks:
+      - sc-net
+    ports:
+      - 7071:8071
+    environment:
+      - RABBIT_MQ_HOST=rabbitmq
+      - RABBIT_MQ_PORT=5672
+      - RABBIT_MQ_USERNAME=guest
+      - RABBIT_MQ_PASSWORD=guest
+      - EUREKA_ZONE_HOST=eureka-server
+      - EUREKA_ZONE_PORT=8761
+networks:
+  sc-net:
+    driver: bridge
