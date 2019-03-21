@@ -1,0 +1,6 @@
+#eureka.instance.instance-id=${spring.cloud.client.ip-address}:${spring.application.instance_id:${server.port}}:@project.version@
+eureka:
+  # 生产环境中官方是不建议修改默认配置，因为那样会破坏 eureka server 的保护模式
+  instance:
+    instance-id: ${spring.cloud.client.ip-address}:${spring.application.instance_id
+    

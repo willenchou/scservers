@@ -1,0 +1,24 @@
+version: '3'
+services:
+  center-demo-consumer:
+    image: willen/consumer-http-demo
+    container_name: sc-demo-consumer
+    restart: unless-stopped
+    volumes:
+      - ./data/center-demo-consumer/logs:/var/logs
+    #depends_on:
+     # - center-demo
+    networks:
+      - sc-net
+    ports:
+      - 7011:8080
+    environment:
+      - RABBIT_MQ_HOST=rabbitmq
+      - RABBIT_MQ_PORT=5672
+      - RABBIT_MQ_USERNAME=guest
+      - RABBIT_MQ_PASSWORD=guest
+      - EUREKA_ZONE_HOST=eureka-server
+      - EUREKA_ZONE_PORT=8761
+networks:
+  sc-net:
+    driver: bridge

@@ -7,6 +7,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.core.env.Environment;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -31,6 +32,10 @@ public class AppApplication {
     @RequestMapping("/test/config")
     public String testconfig(String name) {
         return "client ====>>> " + env.getProperty(name, "未定义");
+    }
+    @RequestMapping("/test/token/back")
+    public String testinterceptortokenback(@RequestHeader String token) {
+        return "token ====>>> " + token;
     }
     public static void main(String[] args) {
         SpringApplication.run(AppApplication.class, args);
