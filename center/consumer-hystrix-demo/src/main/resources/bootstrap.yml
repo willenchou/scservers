@@ -1,6 +1,6 @@
 spring:
   application:
-    name: center-feign-demo
+    name: center-ribbon-demo
   rabbitmq:
     host: ${RABBIT_MQ_HOST:localhost}
     port: ${RABBIT_MQ_PORT:5672}

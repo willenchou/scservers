@@ -5,9 +5,9 @@
 
  	
   <packaging>jar</packaging>
-  <artifactId>consumer-feign-demo</artifactId>
+  <artifactId>consumer-ribbon-demo</artifactId>
   
-  <name>consumer-feign-demo</name>
+  <name>consumer-ribbon-demo</name>
   <description>Demo project for sccenter: Spring Cloud Bus Server,dist config,eureka</description>
   
   <parent>
@@ -37,15 +37,16 @@
         	<groupId>org.springframework.boot</groupId>
         	<artifactId>spring-boot-starter-web</artifactId>
     	</dependency>
-    	<!-- Feign -->
-    	<dependency>
-        	<groupId>org.springframework.cloud</groupId>
-        	<artifactId>spring-cloud-starter-openfeign</artifactId>
-    	</dependency>
-    	<dependency>
+    	<!--
+         <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-netflix-hystrix</artifactId>
+        </dependency>
+        -->
+        <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-netflix-hystrix-dashboard</artifactId>
-        </dependency>
+        </dependency>	
    </dependencies>    
   <build>
         <plugins>

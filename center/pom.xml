@@ -20,5 +20,6 @@
         <module>eureka</module>
     	<module>center-demo</module>
     	<module>consumer-http-demo</module>
+    	<module>consumer-hystrix-demo</module>
   </modules>
 </project>

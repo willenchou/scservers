@@ -1,17 +1,17 @@
 version: '3'
 services:
-  center-demo-consumer:
-    image: willen/consumer-http-demo
-    container_name: sc-demo-consumer
+  center-ribbon-consumer:
+    image: willen/consumer-ribbon-demo
+    container_name: sc-demo-consumer-ribbon
     restart: unless-stopped
     volumes:
-      - ./data/center-demo-consumer/logs:/var/logs
+      - ./data/center-demo-ribbon-consumer/logs:/var/logs
     #depends_on:
      # - center-demo
     networks:
       - sc-net
     ports:
-      - 7011:8080
+      - 7012:8080
     environment:
       - RABBIT_MQ_HOST=rabbitmq
       - RABBIT_MQ_PORT=5672

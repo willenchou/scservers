@@ -3,12 +3,13 @@ package org.willen.sc.app.demo.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
-import org.springframework.cloud.netflix.ribbon.RibbonClient;
 import org.springframework.core.env.Environment;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
-import org.willen.sc.app.config.RibbonRestTemplateConfiguration;
+
+import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
+
 
 
 
@@ -34,12 +35,16 @@ public class RibbonDemoController {
     }
     
     /*******************Ribbon*************************/
-    
+	@HystrixCommand(fallbackMethod = "ribbonfallback")
     @RequestMapping("/test/ribbon")
     public String testconfigrpc(String name) {
     	
     	return "RestTemplate+Ribbon get username  <<==>>  "+restTemplate.getForObject("http://center-demo/test/config/username",String.class);
         
+    }
+	
+	public String ribbonfallback(String name) {
+        return "ribbonFallback default name :ribbonFallback";
     }
 
 }
