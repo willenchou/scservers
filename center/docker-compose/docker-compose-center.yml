@@ -1,24 +1,5 @@
 version: '3'
 services:
-  rabbitmq:
-    image: rabbitmq:management-alpine
-    container_name: rabbitmq
-    environment:
-      - RABBITMQ_DEFAULT_USER=guest
-      - RABBITMQ_DEFAULT_PASS=guest
-    restart: unless-stopped
-    networks:
-      - sc-net
-    volumes:
-      - ./data/rabbitmq:/var/lib/rabbitmq
-    ports:
-      - "15672:15672"
-      - "5672:5672"
-    logging:
-      driver: "json-file"
-      options:
-        max-size: "200k"
-        max-file: "10"
   eureka-server:
     image: willen/eureka-server
     container_name: sc-eureka-server
@@ -31,8 +12,8 @@ services:
       - RABBIT_MQ_USERNAME=guest
       - RABBIT_MQ_PASSWORD=guest
       - EUREKA_ZONE_HOST=eureka-server
-    depends_on:
-      - rabbitmq
+    #depends_on:
+      #- rabbitmq
     networks:
       - sc-net
     ports:
@@ -44,7 +25,7 @@ services:
     volumes:
       - ./data/bus-server/logs:/var/logs
     depends_on:
-      - rabbitmq
+      #- rabbitmq
       - eureka-server
     networks:
       - sc-net
@@ -70,7 +51,7 @@ services:
       - RABBIT_MQ_PASSWORD=guest
       - EUREKA_ZONE_HOST=eureka-server
     depends_on:
-      - rabbitmq
+      #- rabbitmq
       - eureka-server
     networks:
       - sc-net

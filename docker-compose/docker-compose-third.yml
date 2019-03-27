@@ -1,0 +1,37 @@
+version: '3'
+services:
+  redis: 
+      image: redis:alpine
+      container_name: sc-redis
+      restart: always
+      volumes:
+        - ./data/redis:/data
+      environment:
+        - REDIS_PASSWORD=123456
+      #command: redis-cli config set requirepass 123456
+      networks:
+        - sc-net
+      ports:
+        - 6379:6379
+  rabbitmq:
+    image: rabbitmq:management-alpine
+    container_name: rabbitmq
+    environment:
+      - RABBITMQ_DEFAULT_USER=guest
+      - RABBITMQ_DEFAULT_PASS=guest
+    restart: unless-stopped
+    networks:
+      - sc-net
+    volumes:
+      - ./data/rabbitmq:/var/lib/rabbitmq
+    ports:
+      - "15672:15672"
+      - "5672:5672"
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "200k"
+        max-file: "10"
+networks:
+  sc-net:
+    driver: bridge

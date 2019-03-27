@@ -1,0 +1,63 @@
+server:
+  port: 8073
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://${EUREKA_ZONE_HOST:localhost}:${EUREKA_ZONE_PORT:8761}/eureka/
+
+spring:
+  application:
+    name: geteway-server
+  rabbitmq:
+    host: ${RABBIT_MQ_HOST:localhost}
+    port: ${RABBIT_MQ_PORT:5672}
+    username: ${RABBIT_MQ_USERNAME:guest}
+    password: ${RABBIT_MQ_PASSWORD:guest}
+  redis:
+    host: ${REDIS_HOST:localhost}
+    port: ${REDIS_PORT:6379}
+    #password: ${REDIS_PASSWORD:}
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+      routes:
+        #网关路由到订单服务order-service
+      - id: demo-ribbon-consumer
+        uri: lb://center-ribbon-demo
+        predicates:
+          - Path=/test/ribbon/**
+      default-filters:
+      - name: Retry
+        args:
+          retries: 3
+          statuses: BAD_GATEWAY
+      - AddResponseHeader=X-Response-Default-Foo, Default-Bar
+      - name: RequestRateLimiter
+        args:
+          redis-rate-limiter.replenishRate: 1  #令牌桶的容积
+          redis-rate-limiter.burstCapacity: 1  #流速 每秒
+          rate-limiter: "#{@defaultRedisRateLimiter}"  #SPEL表达式去的对应的bean
+          key-resolver: "#{@remoteAddressKeyResolver}" #SPEL表达式去的对应的bean
+
+#网关白名单，无需要签权url
+gate:
+  ignore:
+    authentication:
+      startWith: /oauth,/open
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+
+logging:
+  level:
+    org.willen.sc.gateway: debug
+    com.jalja.org.spring: debug
+  path: logs/
+  file:
+    max-size: 1GB
