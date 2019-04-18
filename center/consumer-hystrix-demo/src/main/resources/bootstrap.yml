@@ -20,7 +20,7 @@ spring:
        retry:
          max-attempts: 6
 server:
-  port: 8080
+  port: 7012
 
 eureka:
   client:

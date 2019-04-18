@@ -41,7 +41,11 @@ spring:
           redis-rate-limiter.burstCapacity: 1  #流速 每秒
           rate-limiter: "#{@defaultRedisRateLimiter}"  #SPEL表达式去的对应的bean
           key-resolver: "#{@remoteAddressKeyResolver}" #SPEL表达式去的对应的bean
-
+    #jwt密码
+  security:
+    oauth2:
+      jwt:
+        signingKey: 123456
 #网关白名单，无需要签权url
 gate:
   ignore:

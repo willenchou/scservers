@@ -7,8 +7,7 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 
 @SpringBootApplication
 @EnableDiscoveryClient
-@EnableFeignClients
-//@EnableFeignClients(basePackages = "com.springboot.cloud.auth.client")
+@EnableFeignClients(basePackages = "org.willen.sc.auth.client")
 public class GatewayApplication {
     public static void main(String[] args) {
         SpringApplication.run(GatewayApplication.class, args);

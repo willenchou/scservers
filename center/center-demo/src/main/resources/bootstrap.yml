@@ -21,8 +21,12 @@ spring:
          max-attempts: 6
 server:
   port: 8091
-
 eureka:
+  # 生产环境中官方是不建议修改默认配置，因为那样会破坏 eureka server 的保护模式
+  instance:
+    prefer-ip-address: true
+    #ip-address: ${REGIST_IP_ADDRESS:localhost}
+    instance-id: ${spring.cloud.client.ip-address}:${spring.application.instance_id:${server.port}}
   client:
     serviceUrl:
       defaultZone: http://${EUREKA_ZONE_HOST:localhost}:${EUREKA_ZONE_PORT:8761}/eureka/

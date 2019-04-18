@@ -1,0 +1,32 @@
+version: '3'
+services:
+  center-demo:
+    image: scservers/center-demo
+    container_name: sc-center-demo
+    restart: unless-stopped
+    volumes:
+      - ./data/center-demo/logs:/var/logs
+    #depends_on:
+     # - rabbitmq
+      #- eureka-server
+      #- bus-server
+      #- config-server
+    networks:
+      - sc-net
+    ports:
+      - 8091:8091
+    environment:
+      - REGIST_IP_ADDRESS=199.168.19.8
+      - RABBIT_MQ_HOST=rabbitmq
+      - RABBIT_MQ_PORT=5672
+      - RABBIT_MQ_USERNAME=guest
+      - RABBIT_MQ_PASSWORD=guest
+      - EUREKA_ZONE_HOST=eureka-server
+      - EUREKA_ZONE_PORT=8761
+    #extra_hosts:
+      #config-server: 199.168.19.8
+      #eureka-server: 199.168.19.8
+      #rabbitmq: 199.168.19.8
+networks:
+  sc-net:
+    driver: bridge
