@@ -17,11 +17,8 @@
     <description>Demo Gateway project for Spring Cloud</description>
 
     <modules>
-        <module>gateway-server</module>
-        <!--
-        <module>auth-server</module>
+        <module>gateway-server</module>  
         <module>gateway-admin</module>
-        -->
     </modules>
 
     <dependencies>

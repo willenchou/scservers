@@ -1,0 +1,16 @@
+version: '3'
+services:
+  gateway-admin:
+    image: scservers/gateway-admin
+    container_name: sc-gateway-admin
+    restart: always
+    volumes:
+      - ./data/gateway-admin/logs:/logs
+    networks:
+      - sc-net
+    ports:
+      - 8445:8445
+    env_file: .env
+networks:
+  sc-net:
+    driver: bridge

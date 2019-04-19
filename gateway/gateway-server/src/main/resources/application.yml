@@ -23,12 +23,12 @@ spring:
       discovery:
         locator:
           enabled: true
-      routes:
+      #routes:
         #网关路由到订单服务order-service
-      - id: demo-ribbon-consumer
-        uri: lb://center-ribbon-demo
-        predicates:
-          - Path=/test/ribbon/**
+      #- id: demo-ribbon-consumer
+      #  uri: lb://center-ribbon-demo
+      #  predicates:
+      #    - Path=/test/ribbon/**
       default-filters:
       - name: Retry
         args:
