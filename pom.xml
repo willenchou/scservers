@@ -23,10 +23,10 @@
         <module>auth</module>
         <module>common</module>
         <module>webapps</module>
-        <!--  
+          
         <module>monitor</module>
-        <module>sysadmin</module>
-        <module>demos</module>
+        <!--
+        <module>apps</module>
         -->
     </modules>
 

@@ -27,3 +27,15 @@ eureka:
     serviceUrl:
       defaultZone: http://${EUREKA_ZONE_HOST:localhost}:${EUREKA_ZONE_PORT:8761}/eureka/
 
+# hystrix endpoint ：http://localhost:port/actuator/hystrix.stream
+management:
+  endpoint:
+    hystrix:
+      stream:
+        enabled: true
+  endpoints:
+    web:
+      exposure:
+        # 如果嫌麻烦，可以一次性加载所有的
+        # include: '*'
+        include: 'hystrix.stream'
