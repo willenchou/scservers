@@ -154,7 +154,6 @@ eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX25hbWUiOiJhZG1pbiIsInNjb3BlIjpbInJ
 | oauth_approvals         |   授权码模式授权信息持久化表      |  用户授权记录                             |
 | oauth_code              |   授权码模式code持久化表         |  code临时存放，code使用过就删除            |
 
-具体表结构请参考[spring-oauth-server 数据库表说明](http://andaily.com/spring-oauth-server/db_table_description.html)
 
 #### 用户角色资源等表结构
 

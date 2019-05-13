@@ -133,11 +133,10 @@ services:
 
 ### 启动服务
 
-将以上docker-compose脚本保存为ocker-compose.yml,并在当时目录下执行`docker-compose up`
+将以上docker-compose脚本保存为docker-compose.yml,并在当时目录下执行`docker-compose up`
 
 ### spring-cloud集成
 
-请参考：https://github.com/zhoutaoo/SpringCloud例子
 
 应用集成开发好后，请求应用的接口
 

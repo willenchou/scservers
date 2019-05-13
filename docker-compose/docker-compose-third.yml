@@ -3,7 +3,7 @@ services:
   redis: 
       image: redis:alpine
       container_name: sc-redis
-      restart: always
+      restart: unless-stopped
       volumes:
         - ./data/redis:/data
       environment:

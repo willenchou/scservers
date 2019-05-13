@@ -24,15 +24,15 @@ spring:
     password: ${POSTGRES_PASSWORD:postgres}
     driver-class-name: org.postgresql.Driver
 
-  #zipkin:
-    #enabled: true
-    #sender:
-      #type: rabbit
-  #sleuth:
-    #enabled: true
-    #http:
-      #legacy:
-        #enabled: true
+  zipkin:
+    enabled: true
+    sender:
+      type: rabbit
+  sleuth:
+    enabled: true
+    http:
+      legacy:
+        enabled: true
 
 management:
   endpoints:

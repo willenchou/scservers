@@ -1,0 +1,16 @@
+version: '3'
+services:
+  boot-admin:
+    image: scservers/admin
+    container_name: sc-boot-admin
+    restart: always
+    volumes:
+      - ./data/boot-admin/logs:/logs
+    networks:
+      - sc-net
+    ports:
+      - 8022:8022
+    env_file: .env
+networks:
+  sc-net:
+    driver: bridge

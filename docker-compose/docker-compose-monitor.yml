@@ -1,0 +1,78 @@
+version: '3'
+services:
+  zipkin-server:
+    image: openzipkin/zipkin
+    container_name: sc-zipkin-server
+    restart: unless-stopped
+    volumes:
+      - ./data/zipkin-server/logs:/var/logs
+    networks:
+      - sc-net
+    ports:
+      - 9411:9411
+    environment:
+      - RABBIT_ADDRESSES=199.168.19.8:5672
+      - RABBIT_MQ_PORT=5672
+      - RABBIT_PASSWORD=guest
+      - RABBIT_USER=guest
+      - STORAGE_TYPE=elasticsearch
+      - ES_HOSTS=http://elasticsearch:9200
+    #depends_on:
+      #- rabbitmq
+
+  elasticsearch:
+    image: elasticsearch:5.6-alpine
+    container_name: sc-elasticsearch
+    restart: unless-stopped
+    environment:
+      - cluster.name=elasticsearch
+      - bootstrap.memory_lock=true
+      - vm.max_map_count=262144
+      - xpack.security.enabled=false
+      - "ES_JAVA_OPTS=-Xms1g -Xmx1g"
+      - node.name=elasticsearch_node_1
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    volumes:
+      - ./data/elasticsearch/data:/usr/share/elasticsearch/data
+      - ./data/elasticsearch/config/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml
+      - ./data/elasticsearch/logs:/usr/share/elasticsearch/logs
+    networks:
+      - sc-net
+    ports:
+      - 9200:9200
+      - 9300:9300
+  kibana:
+    image: kibana:5.6
+    container_name: sc-kibana
+    restart: unless-stopped
+    volumes:
+      - ./data/kibana/logs:/var/logs/kibana
+    networks:
+      - sc-net
+    ports:
+      - 5601:5601
+    environment:
+      - ELASTICSEARCH_URL=http://elasticsearch:9200
+    depends_on:
+      - elasticsearch
+
+  grafana:
+    image: grafana/grafana
+    container_name: sc-grafana
+    restart: unless-stopped
+    volumes:
+      - ./data/grafana/data:/var/lib/grafana
+      - ./data/grafana/logs:/var/logs/grafana
+    networks:
+      - sc-net
+    ports:
+      - 3000:3000
+    environment:
+      - GF_SERVER_ROOT_URL=http://grafana.server.name
+      - GF_SECURITY_ADMIN_PASSWORD=admin123456
+networks:
+  sc-net:
+    driver: bridge

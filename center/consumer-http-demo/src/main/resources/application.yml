@@ -18,5 +18,5 @@ management:
     web:
       exposure:
         # 如果嫌麻烦，可以一次性加载所有的
-        # include: '*'
-        include: 'hystrix.stream'
+        include: '*'
+        #include: 'hystrix.stream'

@@ -6,6 +6,13 @@ spring:
     port: ${RABBIT_MQ_PORT:5672}
     username: ${RABBIT_MQ_USERNAME:guest}
     password: ${RABBIT_MQ_PASSWORD:guest}
+  zipkin:
+    enabled: true
+    sender:
+      type: rabbit
+  sleuth:
+    sampler:
+      probability: 1.0
   cloud:
     config:
        # ',' multi config-file-> name: center-demo1,center-demo2
@@ -23,6 +30,11 @@ server:
   port: 7012
 
 eureka:
+  # 生产环境中官方是不建议修改默认配置，因为那样会破坏 eureka server 的保护模式
+  instance:
+    prefer-ip-address: true
+    #ip-address: ${REGIST_IP_ADDRESS:localhost}
+    instance-id: ${spring.cloud.client.ip-address}:${spring.application.instance_id:${server.port}}
   client:
     serviceUrl:
       defaultZone: http://${EUREKA_ZONE_HOST:localhost}:${EUREKA_ZONE_PORT:8761}/eureka/
@@ -37,5 +49,5 @@ management:
     web:
       exposure:
         # 如果嫌麻烦，可以一次性加载所有的
-        # include: '*'
-        include: 'hystrix.stream'
+        include: '*'
+        #include: 'hystrix.stream'

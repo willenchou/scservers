@@ -9,9 +9,12 @@
 	应用网关
 * auth
 	授权鉴权服务（后续可将服务可扩展到用户中心+开放平台中心的服务，在common中提供安全架包供用户中心，开放平台中心集成）
+* monitor 
+    监控，日志
 	
 ## 部署
 1. base app:docker-compose-thrid.yml<-docker-compose-center.yml<-docker-compose-demo-[gateway].yml.  		
 2. gateway app:docker-compose-demo-auth.yml<-docker-compose-demo-gateway.yml.   		 
 3. demo app:demo-provider.yml<-demo-consumer.yml
+4.monitor:单独机器
 		
