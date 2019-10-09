@@ -54,7 +54,7 @@
                 </executions>
                 <configuration>
                     <!-- 注意imageName一定要是符合正则[a-z0-9-_.]的，否则构建不会成功 -->
-                    <imageName>scservers/${project.artifactId}</imageName>
+                    <imageName>${docker.image.prefix}/${project.artifactId}</imageName>
                     <dockerDirectory>${project.basedir}/src/main/docker</dockerDirectory>
                     <rm>true</rm>
                     <resources>

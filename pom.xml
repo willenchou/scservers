@@ -22,12 +22,9 @@
         <module>gateway</module>
         <module>auth</module>
         <module>common</module>
-        <module>webapps</module>
-          
+        <module>webapps</module>    
         <module>monitor</module>
-        <!--
-        <module>apps</module>
-        -->
+        <module>sysadmin</module>  
     </modules>
 
     <dependencyManagement>

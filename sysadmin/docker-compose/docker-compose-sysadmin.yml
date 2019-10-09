@@ -1,0 +1,27 @@
+version: '3'
+services:
+  organization-server:
+    image: scservers/organization
+    container_name: sc-organization-server
+    restart: unless-stopped
+    volumes:
+      - ./data/organization-server/logs:/var/logs
+    networks:
+      - sc-net
+    ports:
+      - 7010:8010
+    environment:
+      - RABBIT_MQ_HOST=199.168.19.8
+      - RABBIT_MQ_PORT=5672
+      - RABBIT_MQ_USERNAME=guest
+      - RABBIT_MQ_PASSWORD=guest
+      - EUREKA_ZONE_HOST=199.168.19.8
+      - EUREKA_ZONE_PORT=8761
+      - REDIS_HOST=199.168.19.8
+      - REDIS_PORT=6379
+      - REDIS_PASSWORD=123456
+      - POSTGRES_HOST=postgres-sysadmin
+      - POSTGRES_PORT=5432
+networks:
+  sc-net:
+    driver: bridge

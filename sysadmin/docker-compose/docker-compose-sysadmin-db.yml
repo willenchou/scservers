@@ -1,0 +1,18 @@
+version: '3'
+services:
+  postgres-sysadmin:
+    image: postgres:9.6-alpine
+    container_name: sc-postgres-auth
+    restart: unless-stopped
+    volumes:
+      - ./data/postgres-sysadmin:/var/lib/postgresql
+      - ./init/postgres-sysadmin/db:/docker-entrypoint-initdb.d
+    networks:
+      - sc-net
+    ports:
+      - 5432:5432
+    environment:
+      - POSTGRES_PASSWORD=postgres
+networks:
+  sc-net:
+    driver: bridge
